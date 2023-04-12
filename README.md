@@ -2,7 +2,7 @@
 App to sell excess produce for home growers
 
 ## Installation
-check if you have Node.JS & yarn installed
+check in terminal if you have Node.JS & yarn installed
 ```bash
 node -v
 ```
