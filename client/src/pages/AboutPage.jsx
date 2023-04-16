@@ -5,3 +5,4 @@ export default function AboutPage() {
         </div>
     );
 }
+//43:26
