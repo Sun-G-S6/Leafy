@@ -1,6 +1,8 @@
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 
 export default function Header() {
+
+
     return(
         <header className='flex justify-between'>
             <a href="" className='flex items-center gap-2'>
@@ -31,6 +33,13 @@ export default function Header() {
                 <button>
                     <div className='flex border border-gray-400 rounded-full py-3.5 px-1 shadow-md shadow-gray-300'>
                         <div className='px-2'>How we work</div>
+                    </div>
+                </button>
+            </Link>
+            <Link to={"/accountsettings"}> {/*added this to see page*/}
+                <button>
+                    <div className='flex border border-gray-400 rounded-full py-3.5 px-1 shadow-md shadow-gray-300'>
+                        <div className='px-2'>Account settings</div>
                     </div>
                 </button>
             </Link>
