@@ -1,7 +1,14 @@
 import { Link } from "react-router-dom";
+import { Fragment } from 'react'
+import { Menu, Transition } from '@headlessui/react'
+//****************yarn add '@headlessui/react'********************/
+
+function classNames(...classes) {
+    return classes.filter(Boolean).join(' ')
+}
 
 export default function Header() {
-    return(
+    return (
         <header className='flex justify-between'>
             <a href="" className='flex items-center gap-2'>
                 <svg version="1.0" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -35,21 +42,69 @@ export default function Header() {
                 </button>
             </Link>
             <div className='flex border border-gray-400 rounded-full py-3 px-4 shadow-md shadow-gray-300'>
-                <div className='px-2'>Search</div>
-                <button className='bg-primary text-white p-1 rounded-full'>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                <button className='flex items-center'>
+                    <div className='px-2'>Search</div>
+                    <div className="bg-primary text-white p-1 rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 15.75l-2.489-2.489m0 0a3.375 3.375 0 10-4.773-4.773 3.375 3.375 0 004.774 4.774zM21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
+                    </svg></div>
                 </button>
             </div>
             <div className='flex items-center gap-2 border border-gray-400 rounded-full py-2 px-4 shadow-md shadow-gray-300'>
-                <button>
+                <Menu as="div" className="relative inline-block text-left">
                     <div>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-                        </svg>
+                        <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 hover:bg-gray-50">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                            </svg>
+
+                        </Menu.Button>
                     </div>
-                </button>
+
+                    <Transition
+                        as={Fragment}
+                        enter="transition ease-out duration-100"
+                        enterFrom="transform opacity-0 scale-95"
+                        enterTo="transform opacity-100 scale-100"
+                        leave="transition ease-in duration-75"
+                        leaveFrom="transform opacity-100 scale-100"
+                        leaveTo="transform opacity-0 scale-95"
+                    >
+                        <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                            <div className="py-1">
+                                <Menu.Item>
+                                    {({ active }) => (
+                                        <a
+                                            href="#"
+                                            className={classNames(
+                                                active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                                                'block px-4 py-2 text-sm'
+                                            )}
+                                        >
+                                            Account settings
+                                        </a>
+                                    )}
+                                </Menu.Item>
+
+                                <form method="POST" action="#">
+                                    <Menu.Item>
+                                        {({ active }) => (
+                                            <button
+                                                type="submit"
+                                                className={classNames(
+                                                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                                                    'block w-full px-4 py-2 text-left text-sm'
+                                                )}
+                                            >
+                                                Sign out
+                                            </button>
+                                        )}
+                                    </Menu.Item>
+                                </form>
+                            </div>
+                        </Menu.Items>
+                    </Transition>
+                </Menu>
                 <Link to={"/login"} className='flex bg-gray-500 text-white rounded-full border border-gray-500 overflow-hidden'>
                     <button>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 ">
