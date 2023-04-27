@@ -7,6 +7,7 @@ import AboutPage from './pages/AboutPage';
 import HowPage from './pages/HowPage';
 import RegisterPage from './pages/RegisterPage';
 import axios from 'axios';
+import SearchPage from './pages/SearchPage';
 
 axios.defaults.baseURL = 'http://localhost:4000';
 
@@ -19,6 +20,7 @@ function App() {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/how" element={<HowPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/search" element={<SearchPage />} />
       </Route>
       
     </Routes>
