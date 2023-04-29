@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from "axios";
 import {Button, TextField} from '@mui/material/';
-import {TextareaAutosize} from '@mui/base/';
 import Avatar from '@mui/material/Avatar';
 
 export default function AccountSettingsPage() {
@@ -28,11 +27,10 @@ export default function AccountSettingsPage() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log('First Name:', firstname);
-    console.log('Last Name:', lastname);
-    console.log('Email:', email);
-    console.log('Password:', password);
-    // TODO: Add logic to update user's account settings
+    // console.log('First Name:', firstname);
+    // console.log('Last Name:', lastname);
+    // console.log('Email:', email);
+    // console.log('Password:', password);
     axios.post("/accountsettings", {
         firstname,
         lastname,
@@ -58,7 +56,7 @@ export default function AccountSettingsPage() {
        
               <TextField input type="password" margin="dense" size="small" label="Password" value={password} onChange={handlePasswordChange} />
               <br />
-              <Button type="submit"variant="contained" color='primary'>Save Changes</Button>
+              <Button type="submit" variant="contained" color='primary'> Save Changes </Button>
             </form>
         </div>
     </div>
