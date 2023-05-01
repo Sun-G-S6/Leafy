@@ -1,7 +1,16 @@
 import { Link } from "react-router-dom";
+import { Fragment, useContext } from 'react'
+import { Menu, Transition } from '@headlessui/react'
+import { UserContext } from "./UserContext";
+//****************yarn add '@headlessui/react'********************/
+
+function classNames(...classes) {
+    return classes.filter(Boolean).join(' ')
+}
 
 export default function Header() {
-    return(
+    const {user} = useContext(UserContext);
+    return (
         <header className='flex justify-between'>
             <a href="" className='flex items-center gap-2'>
                 <svg version="1.0" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
