@@ -11,7 +11,7 @@ import orange from '../pictures/orange.jpg';
 import pear from '../pictures/pear.jpg';
 import pineapple from '../pictures/pineapple.jpg';
 import strawberry from '../pictures/strawberry.jpg';
-
+import cart from '../pictures/cart.jpg'
 
 export default function SearchPage() {
     const dummyProducts = [
@@ -33,7 +33,7 @@ export default function SearchPage() {
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResults, setSearchResults] = useState(dummyProducts);
     const [cart, setCart] = useState([]);
-
+    const [quantity, setQuantity] = useState(1);
     const handleChange = event => {
         setSearchTerm(event.target.value);
     };
@@ -44,7 +44,7 @@ export default function SearchPage() {
         if (searchTerm.trim() === "") {
         results = dummyProducts; // Display all products when search term is empty
         } else {
-        results = dummyProducts.filter((product) =>
+            results = dummyProducts.filter((product) =>
             product.name.toLowerCase().includes(searchTerm.toLowerCase())
         );
         }
@@ -53,20 +53,37 @@ export default function SearchPage() {
 
   
 
-    const addToCart = (product) => {
-    setCart([...cart, product]);
-    };
+    // const addToCart = (product) => {
+    //     setCart([...cart, product]);
+    // };
 
-    const [quantity, setQuantity] = useState(1);
+    const addToCart = (product) => {
+        const existingProductIndex = cart.findIndex(
+          (item) => item.name === product.name
+        );
+        if (existingProductIndex !== -1) {
+          const updatedCart = [...cart];
+          const existingProduct = { ...updatedCart[existingProductIndex] };
+          existingProduct.quantity += 1;
+          updatedCart[existingProductIndex] = existingProduct;
+          setCart(updatedCart);
+        } else {
+          const newProduct = { ...product, quantity: 1 };
+          setCart([...cart, newProduct]);
+        }
+      };
+      
+
+    
 
     const handleIncrease = () => {
         setQuantity(quantity + 1);
       };
     
     const handleDecrease = () => {
-    if (quantity > 1) {
-        setQuantity(quantity - 1);
-    }
+        if (quantity > 1) {
+            setQuantity(quantity - 1);
+        }
     };
 
   return (
@@ -74,28 +91,38 @@ export default function SearchPage() {
       <div>
         {/* <h1>Search Page</h1> */}
         
+        
         <form onSubmit={handleSubmit}>
-          <div style={{ display: "flex", justifyContent: "center" }}>
-            <label style={{ padding: "10px", maxWidth: "500px", marginRight: "10px", display: "flex", alignItems: "center" }}>
-              <input type="text" placeholder = "Search Produce" value={searchTerm} onChange={handleChange} style={{ width: "100%" , textAlign: "center" }} />
-            </label>
-          </div>
+            <div>
+                <div style={{ display: "flex", justifyContent: "center", paddingTop: "20px" }}>
+                    <a onClick={() => addToCart(product)} className="d-block text-center">
+                        <img src="src/pictures/cart.jpg" alt="Add to Cart" style={{ width: "50px", height: "50px" }} />
+                        <h10>In Cart: {cart.filter(item => item.id === product.id).length}</h10>
+                    </a>
+                </div>
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                    <label style={{ padding: "10px", maxWidth: "500px", marginRight: "10px", display: "flex", alignItems: "center" }}>
+                        <input type="text" placeholder = "Search Produce" value={searchTerm} onChange={handleChange} style={{ width: "100%" , textAlign: "center" }} />
+                    </label>
+                </div>
+            </div>
+          
           <div style={{ display: "flex", justifyContent: "center" }}>
             <div>
               <button
                 type="submit"
                 style={{
-                  backgroundColor: "#4CAF50",
-                  border: "none",
-                  color: "white",
-                  padding: "10px 20px",
-                  textAlign: "center",
-                  textDecoration: "none",
-                  display: "inline-block",
-                  fontSize: "16px",
-                  margin: "4px 2px",
-                   cursor: "pointer",
-                  borderRadius: "5px",
+                    backgroundColor: "#4CAF50",
+                    border: "none",
+                    color: "white",
+                    padding: "10px 20px",
+                    textAlign: "center",
+                    textDecoration: "none",
+                    display: "inline-block",
+                    fontSize: "16px",
+                    margin: "4px 2px",
+                    cursor: "pointer",
+                    borderRadius: "5px",
                 }}
               >
                 Submit
@@ -114,13 +141,13 @@ export default function SearchPage() {
           </div>
         )}
         {searchResults.length > 0 && (
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-              gap: "1rem",
-            }}
-          >
+            <div
+                style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+                gap: "1rem",
+                }}
+            >
             {searchResults.map((product) => (
               <div
                 key={product.name}
@@ -145,7 +172,7 @@ export default function SearchPage() {
                 </div>
                 <div style={{ display: "flex", justifyContent: "center" , paddingBottom: "10px"}}>
                     <button
-                        onClick={() => addToCart(product)}
+                        
                         style={{
                             backgroundColor: "#4CAF50",
                             border: "none",
@@ -164,7 +191,7 @@ export default function SearchPage() {
                             minWidth: "120px",
                         }}
                     >
-                        <span style={{ marginRight: "10px" }}>Add to cart</span>
+                        <span onClick={() => addToCart(product)} style={{ marginRight: "10px" }}>Add to cart</span>
                         <div
                             style={{
                                 display: "flex",
@@ -178,14 +205,10 @@ export default function SearchPage() {
                                 marginLeft: "10px",
                             }}
                         >
-                            {/* <button onClick={handleDecrease} style={{ color: 'white' }}>-</button>
-                            <span style={{ margin: "0 10px" }}>{quantity}</span>
-                            <button onClick={handleIncrease} style={{ color: 'white' }}>+</button> */}
                             <div style={{ display: "flex", alignItems: "center" }}>
-                                    <button onClick={handleDecrease} style={{ marginRight: "11px", color: 'white' }}>-</button>
-                                    {/* <input type="number" min="1" value={quantity} style={{ width: "10px", textAlign: "center", color: 'green' }} /> */}
-                                    <span style={{ margin: "0px" }}>{quantity}</span>
-                                    <button onClick={handleIncrease} style={{ marginLeft: "11px", color: 'white' }}>+</button>
+                                <button onClick={handleDecrease} style={{ marginRight: "11px", color: 'white' }}>-</button>
+                                <span style={{ margin: "0px" }}>{quantity}</span>
+                                <button onClick={handleIncrease} style={{ marginLeft: "11px", color: 'white' }}>+</button>
                             </div>
                         </div>
                     </button>
@@ -197,5 +220,6 @@ export default function SearchPage() {
       </div>
     </div>
   );
-  
 }
+
+
