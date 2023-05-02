@@ -8,7 +8,7 @@ require('dotenv').config()
 const app = express();
 
 const bcryptSalt = bcrypt.genSaltSync(10);
-const jwtSecret = '7asj7d1301fsa23ho53vb191131'
+const jwtSecret = '7asj7d1301fsa23ho53vb191131';
 
 app.use(express.json());
 app.use(cors({
