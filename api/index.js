@@ -6,11 +6,18 @@ const jwt = require('jsonwebtoken');
 const User = require('./models/User.js');
 require('dotenv').config()
 const app = express();
+const cookieParser = require('cookie-parser');
+
+/********** YARN ADD ALL THIS IN THE API DIRECTORY
+*********** yarn add cookie-parser
+***********
+*/
 
 const bcryptSalt = bcrypt.genSaltSync(10);
 const jwtSecret = '7asj7d1301fsa23ho53vb191131';
 
 app.use(express.json());
+app.use(cookieParser());
 app.use(cors({
     credentials: true,
     origin: 'http://127.0.0.1:5173'
@@ -46,7 +53,10 @@ app.post('/login', async (req,res) => {
     if (userDoc) {
         const passOk = bcrypt.compareSync(password, userDoc.password);
         if (passOk) {
-            jwt.sign({email:userDoc.email, id:userDoc._id}, jwtSecret, {}, (err,token) => {
+            jwt.sign({
+                email:userDoc.email, 
+                id:userDoc._id}, 
+                jwtSecret, {}, (err,token) => {
                 if (err) throw err;
                 res.cookie('token', token).json(userDoc);
             });
@@ -57,5 +67,18 @@ app.post('/login', async (req,res) => {
         res.json('not found');
     }
 });
+
+app.get('/profile', (req,res) => {
+    const {token} = req.cookies;
+    if (token) {
+        jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+            if (err) throw err;
+            const {fName, lName, email, _id} = await User.findById(userData.id);
+            res.json({ fName, lName, email, _id });
+        });
+    } else {
+        res.json(null);
+    }
+})
 
 app.listen(4000);

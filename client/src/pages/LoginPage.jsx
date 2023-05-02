@@ -18,10 +18,11 @@ export default function LoginPage() {
         } catch (e) {
             alert('Login failed');
         }
-    if (redirect) {
-        return <Navigate to={'/'} />
     }
-
+        if (redirect) {
+        return <Navigate to={'/'} />
+        }
+    
     return(
         <div className="mt-4 grow flex items-center justify-around">
             <div className="mb-64">
