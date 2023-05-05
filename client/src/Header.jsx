@@ -44,13 +44,14 @@ export default function Header() {
                 </button>
             </Link>
             <div className='flex border border-gray-400 rounded-full py-3 px-4 shadow-md shadow-gray-300'>
-                <button className='flex items-center'>
-                    <div className='px-2'>Search</div>
-                    <div className="bg-primary text-white p-1 rounded-full">
+                <div className='px-2'>Search</div>
+                <Link to={"/search"}>
+                    <button className='bg-primary text-white p-1 rounded-full'>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 15.75l-2.489-2.489m0 0a3.375 3.375 0 10-4.773-4.773 3.375 3.375 0 004.774 4.774zM21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg></div>
-                </button>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 15.75l-2.489-2.489m0 0a3.375 3.375 0 10-4.773-4.773 3.375 3.375 0 004.774 4.774zM21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </button>
+                </Link>
             </div>
             <div className='flex items-center gap-2 border border-gray-400 rounded-full py-2 px-4 shadow-md shadow-gray-300'>
                 <Menu as="div" className="relative inline-block text-left">
