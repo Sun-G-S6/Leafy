@@ -9,8 +9,8 @@ const app = express();
 const cookieParser = require('cookie-parser');
 
 /********** YARN ADD ALL THIS IN THE API DIRECTORY
-*********** yarn add cookie-parser
-***********
+*********** yarn add express cors mongoose bcryptjs jsonwebtoken dotenv cookie-parser
+
 */
 
 const bcryptSalt = bcrypt.genSaltSync(10);
@@ -79,6 +79,10 @@ app.get('/profile', (req,res) => {
     } else {
         res.json(null);
     }
-})
+});
+
+app.post('/logout', (req,res) => {
+    res.cookie('token', '').json(true);
+});
 
 app.listen(4000);
