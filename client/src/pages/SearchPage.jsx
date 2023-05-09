@@ -30,10 +30,6 @@ export default function SearchPage() {
         { name: "Strawberry", price: "$1.99", imgSrc: strawberry, seller: "Mary's Market", distance: "0.8 miles", quantity: 3 },
     ];
 
-    // const cart = [
-    //     { name: "Strawberry", price: "$1.99", imgSrc: strawberry, seller: "Mary's Market", distance: "0.8 miles", quantity: 3 }
-    // ];
-
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResults, setSearchResults] = useState(dummyProducts);
     const [quantity, setQuantity] = useState(1);
@@ -69,39 +65,6 @@ export default function SearchPage() {
         setCart([]);
         setCartLength(0);
     }
-
-    // const buyCart = (event) => {
-    //     event.preventDefault();
-    //     const updatedPurchasedItems = [...purchased];
-
-    //     const updatedCartItems = cart.map((item) => {
-    //         const existingItemIndex = updatedPurchasedItems.findIndex((purchasedItem) => purchasedItem.name === item.name);
-    //         if (existingItemIndex !== -1) {
-    //             const purchasedQuantity = updatedPurchasedItems[existingItemIndex].quantity;
-    //             updatedPurchasedItems[existingItemIndex] = {
-    //                 ...updatedPurchasedItems[existingItemIndex],
-    //                 quantity: purchasedQuantity + item.quantity,
-    //             };
-    //             return {
-    //                 ...item,
-    //                 quantity: item.quantity - purchasedQuantity,
-    //             };
-    //         } else {
-    //             return item;
-    //         }
-    //     }).filter((item) => item.quantity > 0);
-
-    //     setCart(updatedCartItems);
-    //     setPurchased(updatedPurchasedItems);
-    //     setCartLength(cartLength - updatedPurchasedItems.reduce((acc, item) => acc + item.quantity, 0));
-
-    //     alert("We have purchased your cart!");
-
-    //     clearCart(event);
-    //     console.log(updatedPurchasedItems);
-    //     console.log(cart);
-
-    // }
 
     const buyCart = (event) => {
         event.preventDefault();
