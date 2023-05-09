@@ -107,7 +107,7 @@ export default function SearchPage() {
         event.preventDefault();
         
         // create a copy of the inventory
-        const updatedInventory = [...dummyProducts];
+        const updatedInventory = [...inventory];
         
         // update the quantities in the inventory
         cart.forEach((item) => {
@@ -122,17 +122,18 @@ export default function SearchPage() {
         
         // update the purchased items state
         const updatedPurchasedItems = [...purchased];
-        cart.forEach((item) => {
+        inventory.forEach((item) => {
             const existingItemIndex = updatedPurchasedItems.findIndex((purchasedItem) => purchasedItem.name === item.name);
             if (existingItemIndex !== -1) {
                 updatedPurchasedItems[existingItemIndex] = {
                     ...updatedPurchasedItems[existingItemIndex],
-                    quantity: updatedPurchasedItems[existingItemIndex].quantity - item.quantity,
+                    quantity: updatedPurchasedItems[existingItemIndex].quantity + item.quantity,
                 };
             } else {
                 updatedPurchasedItems.push({ ...item });
             }
         });
+        
         setPurchased(updatedPurchasedItems);
         
         // update the cart state and cart length
@@ -158,68 +159,38 @@ export default function SearchPage() {
         setCart(newCart); // update the cart state with the new array
     }
 
-    // const addToCart = (event, product, quantity) => {
-    //     event.preventDefault();
-    //     const existingItemIndex = cart.findIndex((item) => item.name === product.name);
-    //     console.log(product.quantity);
-    //     console.log(quantity);
-    //     if (quantity <= product.quantity) {
-    //         if (existingItemIndex !== -1) {
-    //             const existingQuantity = cart[existingItemIndex].quantity;
-    //             console.log(existingQuantity);
-    //             if (existingQuantity + quantity <= product.quantity) {
-    //                 const updatedCartItems = [...cart];
-    //                 updatedCartItems[existingItemIndex] = {
-    //                     ...updatedCartItems[existingItemIndex],
-    //                     quantity: existingQuantity + quantity,
-    //                 };
-    //                 setCart(updatedCartItems);
-    //                 setCartLength(cartLength + quantity);
-    //             } else {
-    //                 alert(`You cannot add more than ${product.quantity} ${product.name}(s) to the cart.`);
-    //             }
-    //         } else {
-    //             setCart([...cart, { ...product, quantity: quantity }]);
-    //             setCartLength(cartLength + quantity);
-    //         }
-    //     } else {
-    //         alert(`You cannot add more than ${product.quantity} ${product.name}(s) to the cart.`);
-    //     }
-    //     setQuantity(1);
-    // };
-
     const addToCart = (event, product, quantity) => {
         event.preventDefault();
         const existingItemIndex = cart.findIndex((item) => item.name === product.name);
         const inventoryItemIndex = inventory.findIndex((item) => item.name === product.name);
         if (inventoryItemIndex === -1) {
-          alert(`Sorry, ${product.name} is out of stock.`);
-          return;
+            alert(`Sorry, ${product.name} is out of stock.`);
+            return;
         }
         const availableQuantity = inventory[inventoryItemIndex].quantity;
         if (quantity <= availableQuantity) {
-          if (existingItemIndex !== -1) {
-            const existingQuantity = cart[existingItemIndex].quantity;
-            if (existingQuantity + quantity <= availableQuantity) {
-              const updatedCartItems = [...cart];
-              updatedCartItems[existingItemIndex] = {
-                ...updatedCartItems[existingItemIndex],
-                quantity: existingQuantity + quantity,
-              };
-              setCart(updatedCartItems);
-              setCartLength(cartLength + quantity);
+            if (existingItemIndex !== -1) {
+                const existingQuantity = cart[existingItemIndex].quantity;
+                if (existingQuantity + quantity <= availableQuantity) {
+                    const updatedCartItems = [...cart];
+                    updatedCartItems[existingItemIndex] = {
+                        ...updatedCartItems[existingItemIndex],
+                        quantity: existingQuantity + quantity,
+                    };
+                    setCart(updatedCartItems);
+                    setCartLength(cartLength + quantity);
+                } else {
+                    alert(`You cannot add more than ${availableQuantity} ${product.name}(s) to the cart.`);
+                }
             } else {
-              alert(`You cannot add more than ${availableQuantity} ${product.name}(s) to the cart.`);
+                setCart([...cart, { ...product, quantity: quantity }]);
+                setCartLength(cartLength + quantity);
             }
-          } else {
-            setCart([...cart, { ...product, quantity: quantity }]);
-            setCartLength(cartLength + quantity);
-          }
         } else {
-          alert(`You cannot add more than ${availableQuantity} ${product.name}(s) to the cart.`);
+            alert(`You cannot add more than ${availableQuantity} ${product.name}(s) to the cart.`);
         }
         setQuantity(1);
-      };
+    };
       
 
     const handleIncrease = () => {
