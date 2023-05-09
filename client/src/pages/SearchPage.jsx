@@ -73,7 +73,7 @@ export default function SearchPage() {
     // const buyCart = (event) => {
     //     event.preventDefault();
     //     const updatedPurchasedItems = [...purchased];
-    
+
     //     const updatedCartItems = cart.map((item) => {
     //         const existingItemIndex = updatedPurchasedItems.findIndex((purchasedItem) => purchasedItem.name === item.name);
     //         if (existingItemIndex !== -1) {
@@ -90,11 +90,11 @@ export default function SearchPage() {
     //             return item;
     //         }
     //     }).filter((item) => item.quantity > 0);
-    
+
     //     setCart(updatedCartItems);
     //     setPurchased(updatedPurchasedItems);
     //     setCartLength(cartLength - updatedPurchasedItems.reduce((acc, item) => acc + item.quantity, 0));
-        
+
     //     alert("We have purchased your cart!");
 
     //     clearCart(event);
@@ -105,10 +105,10 @@ export default function SearchPage() {
 
     const buyCart = (event) => {
         event.preventDefault();
-        
+
         // create a copy of the inventory
         const updatedInventory = [...inventory];
-        
+
         // update the quantities in the inventory
         cart.forEach((item) => {
             const existingItemIndex = updatedInventory.findIndex((inventoryItem) => inventoryItem.name === item.name);
@@ -119,7 +119,7 @@ export default function SearchPage() {
                 };
             }
         });
-        
+
         // update the purchased items state
         const updatedPurchasedItems = [...purchased];
         inventory.forEach((item) => {
@@ -133,21 +133,21 @@ export default function SearchPage() {
                 updatedPurchasedItems.push({ ...item });
             }
         });
-        
+
         setPurchased(updatedPurchasedItems);
-        
+
         // update the cart state and cart length
         setCart([]);
         setCartLength(0);
-        
+
         // update the inventory state
         setInventory(updatedInventory);
 
         console.log(updatedInventory);
         alert("We have purchased your cart!");
     };
-    
-    
+
+
 
 
 
@@ -191,7 +191,7 @@ export default function SearchPage() {
         }
         setQuantity(1);
     };
-      
+
 
     const handleIncrease = () => {
         setQuantity(quantity + 1);
@@ -207,81 +207,81 @@ export default function SearchPage() {
         <div>
             <div>
                 {/* <h1>Search Page</h1> */}
-                
-                    <div>
-                        <div style={{ display: "flex", justifyContent: "center", paddingTop: "20px" }}>
-                            <a className="d-block text-center">
-                                <div style={{ display: "flex", justifyContent: "center", paddingTop: "20px" }}>
-                                    <img onClick={(event) => clearCart(event)}src="src/pictures/cart.jpg" alt="Add to Cart" style={{ width: "50px", height: "50px" }} />
-                                    
-                                </div>
-                                <h10>Cart: {cartLength}</h10>
-                                <div>
-                                    {cart.map((product) => (
-                                        <div key={product.name} style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                                            <p>{`${product.name} (${product.quantity})`}</p>
-                                            <img onClick={(event) => removeCart(event, product)} src={remove} style={{ paddingLeft: "10px", paddingTop: "3px" }} width="4%" height="4%" />
-                                            
-                                        </div>
-                                    ))}
-                                    <div style={{ display: "flex", paddingTop: "5px", padding: "10px", paddingRight: "10px", justifyContent: "center", alignItems: "center" }}>
-                                        <button
-                                            onClick={(event) => buyCart(event)}
-                                            style={{
-                                                backgroundColor: "#4CAF50",
-                                                border: "none",
-                                                color: "white",
-                                                padding: "2px 8px",
-                                                textAlign: "center",
-                                                textDecoration: "none",
-                                                fontSize: "12px",
-                                                margin: "2px",
-                                                cursor: "pointer",
-                                                borderRadius: "4px",
-                                                display: "flex",
-                                                alignItems: "center",
-                                                justifyContent: "center",
-                                                height: "24px",
-                                                minWidth: "30px",
-                                            }}
-                                        >
-                                            Buy Cart
-                                        </button>
-                                    </div>
-                                    
-                                </div>
-                            </a>
-                        </div>
-                        <form onSubmit={handleSubmit}>
-                            <div style={{ display: "flex", justifyContent: "center" }}>
-                                <label style={{ padding: "10px", maxWidth: "500px", marginRight: "10px", display: "flex", alignItems: "center" }}>
-                                    <input type="text" placeholder="Search Produce" value={searchTerm} onChange={handleChange} style={{ width: "100%", textAlign: "center" }} />
-                                </label>
-                            </div>
-                        </form>
-                    </div>
 
-                    <div style={{ display: "flex", justifyContent: "center" }}>
-                        <div>
-                            <button
-                                type="submit"
-                                style={{
-                                    backgroundColor: "#4CAF50",
-                                    border: "none",
-                                    color: "white",
-                                    padding: "10px 20px",
-                                    textAlign: "center",
-                                    textDecoration: "none",
-                                    fontSize: "16px",
-                                    margin: "4px 2px",
-                                    cursor: "pointer",
-                                    borderRadius: "5px",
-                                }}
-                            >
-                                Submit
-                            </button>
-                        </div>
+                <div>
+                    <div style={{ display: "flex", justifyContent: "center", paddingTop: "20px" }}>
+                        <a className="d-block text-center">
+                            <div style={{ display: "flex", justifyContent: "center", paddingTop: "20px" }}>
+                                <img onClick={(event) => clearCart(event)} src="src/pictures/cart.jpg" alt="Add to Cart" style={{ width: "50px", height: "50px" }} />
+
+                            </div>
+                            <h10>Cart: {cartLength}</h10>
+                            <div>
+                                {cart.map((product) => (
+                                    <div key={product.name} style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                        <p>{`${product.name} (${product.quantity})`}</p>
+                                        <img onClick={(event) => removeCart(event, product)} src={remove} style={{ paddingLeft: "10px", paddingTop: "3px" }} width="4%" height="4%" />
+
+                                    </div>
+                                ))}
+                                <div style={{ display: "flex", paddingTop: "5px", padding: "10px", paddingRight: "20px", justifyContent: "center", alignItems: "center" }}>
+                                    <button
+                                        onClick={(event) => buyCart(event)}
+                                        style={{
+                                            backgroundColor: "#4CAF50",
+                                            border: "none",
+                                            color: "white",
+                                            padding: "2px 8px",
+                                            textAlign: "center",
+                                            textDecoration: "none",
+                                            fontSize: "12px",
+                                            margin: "2px",
+                                            cursor: "pointer",
+                                            borderRadius: "4px",
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                            height: "24px",
+                                            minWidth: "30px",
+                                        }}
+                                    >
+                                        Buy Cart
+                                    </button>
+                                </div>
+
+                            </div>
+                        </a>
                     </div>
+                    <form onSubmit={handleSubmit}>
+                        <div style={{ display: "flex", justifyContent: "center" }}>
+                            <label style={{ padding: "10px", maxWidth: "500px", marginRight: "10px", display: "flex", alignItems: "center" }}>
+                                <input type="text" placeholder="Search Produce" value={searchTerm} onChange={handleChange} style={{ width: "100%", textAlign: "center" }} />
+                            </label>
+                        </div>
+                    </form>
+                </div>
+
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                    <div>
+                        <button
+                            type="submit"
+                            style={{
+                                backgroundColor: "#4CAF50",
+                                border: "none",
+                                color: "white",
+                                padding: "10px 20px",
+                                textAlign: "center",
+                                textDecoration: "none",
+                                fontSize: "16px",
+                                margin: "4px 2px",
+                                cursor: "pointer",
+                                borderRadius: "5px",
+                            }}
+                        >
+                            Submit
+                        </button>
+                    </div>
+                </div>
 
             </div>
 
@@ -375,5 +375,6 @@ export default function SearchPage() {
         </div>
     );
 }
+
 
 
