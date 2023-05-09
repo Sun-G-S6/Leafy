@@ -7,12 +7,14 @@ export default function RegisterPage() {
     const [lName, setLName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [phone, setPhone] = useState('');
     async function registerUser(ev) {
         ev.preventDefault();
         try {
             await axios.post('/register', {
                 fName,
                 lName,
+                phone,
                 email,
                 password
             });
@@ -33,6 +35,9 @@ export default function RegisterPage() {
                     <input type="text" placeholder="Last Name"
                         value={lName}
                         onChange={ev => setLName(ev.target.value)} />
+                    <input type="text" placeholder="Phone Number"
+                        value={phone}
+                        onChange={ev => setPhone(ev.target.value)} />
                     <input type="email" placeholder="your@email.com"
                         value={email}
                         onChange={ev => setEmail(ev.target.value)} />
