@@ -209,7 +209,7 @@ export default function SearchPage() {
                 {/* <h1>Search Page</h1> */}
 
                 <div>
-                    <div style={{ display: "flex", justifyContent: "center", paddingTop: "20px" }}>
+                    <div style={{ display: "flex", justifyContent: "center", paddingTop: "20px", paddingRight: "5px"}}>
                         <a className="d-block text-center">
                             <div style={{ display: "flex", justifyContent: "center", paddingTop: "20px" }}>
                                 <img onClick={(event) => clearCart(event)} src="src/pictures/cart.jpg" alt="Add to Cart" style={{ width: "50px", height: "50px" }} />
@@ -224,7 +224,7 @@ export default function SearchPage() {
 
                                     </div>
                                 ))}
-                                <div style={{ display: "flex", paddingTop: "5px", padding: "10px", paddingRight: "20px", justifyContent: "center", alignItems: "center" }}>
+                                <div style={{ display: "flex", paddingTop: "5px", padding: "10px", paddingRight: "5px", justifyContent: "center", alignItems: "center" }}>
                                     <button
                                         onClick={(event) => buyCart(event)}
                                         style={{
