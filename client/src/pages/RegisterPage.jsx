@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 
@@ -8,6 +8,9 @@ export default function RegisterPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [phone, setPhone] = useState('');
+    const [redirect, setRedirect] = useState(false);
+
+
     async function registerUser(ev) {
         ev.preventDefault();
         try {
@@ -19,11 +22,16 @@ export default function RegisterPage() {
                 password
             });
             alert('Registration successful. Now you can log in.');
+            setRedirect(true);
         } catch (e) {
             alert('Registration failed. Try again later.')
-        }
-        
+        }   
     }
+
+    if (redirect) {
+        return <Navigate to={'/login'} />
+    }
+
     return (
         <div className="mt-4 grow flex items-center justify-around">
             <div className="mb-64">
@@ -35,7 +43,7 @@ export default function RegisterPage() {
                     <input type="text" placeholder="Last Name"
                         value={lName}
                         onChange={ev => setLName(ev.target.value)} />
-                    <input type="text" placeholder="Phone Number"
+                    <input type="text" placeholder="Phone Number Example: 5101231234"
                         value={phone}
                         onChange={ev => setPhone(ev.target.value)} />
                     <input type="email" placeholder="your@email.com"
