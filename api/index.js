@@ -42,6 +42,7 @@ app.post('/register', async (req,res) => {
             fName,
             lName,
             email,
+            phone,
             password: bcrypt.hashSync(password, bcryptSalt),
         });
         res.json(userDoc);
