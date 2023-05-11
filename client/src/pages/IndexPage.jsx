@@ -1,6 +1,5 @@
 import React from "react";
 import Carousel from "../components/Carousel.jsx";
-//import Table from "../components/table.jsx";
 
 const slides = [
   "https://www.racv.com.au/content/dam/racv/images/content-hub/home-property/gardening/how-to-grow-a-vegetable-patch/1600x600GettyImages-532865778.jpg.transform/heroMob/image.jpg",
