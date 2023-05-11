@@ -62,8 +62,13 @@ export default function SearchPage() {
 
     const clearCart = (event) => {
         event.preventDefault();
+        if(cart.length == 0){
+            return;
+        }
         setCart([]);
         setCartLength(0);
+        alert('Cart Cleared!');
+        
     }
 
     const buyCart = (event) => {
