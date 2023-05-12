@@ -13,8 +13,8 @@ export default function Header() {
     return (
         <header className='flex justify-between'>
             <Link to={'/'} className='flex items-center gap-2'>
-                <svg version="1.0" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                    width="50px" height="40px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
+                <svg version="1.0" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink"
+                    width="50px" height="40px" viewBox="0 0 64 64" enableBackground="new 0 0 64 64" xmlSpace="preserve">
                     <g>
                         <path fill="#B4CCB9" d="M56,28c0,11.047-8.953,20-20,20H16V28c0-11.047,8.953-20,20-20h20V28z" />
                         <g>
