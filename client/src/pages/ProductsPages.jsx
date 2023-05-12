@@ -1,6 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
+import Categories from "./Categories";
 
 
 export default function ProductsPage() {
@@ -21,16 +22,19 @@ export default function ProductsPage() {
         });
         setPhotoLink('');
     }
+
     function uploadPhoto(ev) {
         const files = ev.target.files;
         const data = new FormData();
-        data.set('photos', files[0]);
+        for (let i = 0; i < files.length; i++) {
+            data.append('photos', files[i]);
+        }
         axios.post('/upload', data, {
             headers: {'Content-Type': 'multipart/form-data'}
         }).then(response => {
-            const {data:filename} = response;
+            const {data:filenames} = response;
             setAddedPhoto(prev => {
-                return [...prev, filename];
+                return [...prev, ...filenames];
             });
         })
     }
@@ -73,7 +77,7 @@ export default function ProductsPage() {
                                 className="border rounded-md" 
                                 type="number" 
                                 value={quantity} 
-                                onChange={ev => setPrice(ev.target.value)} 
+                                onChange={ev => setQuantity(ev.target.value)} 
                                 placeholder="Example: 100" />
 
                         <h2 className="text-2xl mt-4">Photos</h2>
@@ -87,12 +91,12 @@ export default function ProductsPage() {
                         </div>
                         <div className="mt-2 grid gap-2 grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
                             {addedPhoto.length > 0 && addedPhoto.map(link => (
-                                <div>
-                                    <img className="border rounded-2xl" src={'http://localhost:4000/uploads/' + link} alt='' style={{ width: '100%', height: '100%', objectFit: 'cover'}} />
+                                <div className="h-32 flex">
+                                    <img className="border rounded-2xl w-full object-cover" src={'http://localhost:4000/uploads/' + link} alt='' />
                                 </div>
                             ))}
-                            <label className="flex items-center justify-center gap-1 border bg-transparent rounded-2xl p-2 text-2xl text-gray-500 cursor-pointer">
-                                <input type="file" className="hidden" onChange={uploadPhoto} />
+                            <label className="h-32 flex items-center justify-center gap-1 border bg-transparent rounded-2xl p-2 text-2xl text-gray-500 cursor-pointer">
+                                <input type="file" multiple className="hidden" onChange={uploadPhoto} />
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z" />
                                 </svg>
@@ -102,19 +106,12 @@ export default function ProductsPage() {
 
                         <h2 className="text-2xl mt-4">Description</h2>
                         <p className="text-gray-500 text-sm">Description of your product</p>
-                        <textarea value={description} onChange={ev => setDescription(ev.target.value)} />
+                        <textarea className="w-full border rounded-2xl" value={description} onChange={ev => setDescription(ev.target.value)} />
 
                         <h2 className="text-2xl mt-4">Categories</h2>
                         <p className="text-gray-500 text-sm">Select your product category</p>
                         <div className="grid grid-cols-2 gap-2 mt-2">
-                            <label className="flex border rounded-2xl p-4 gap-2 items-center cursor-pointer">
-                                <input type="checkbox" />
-                                <span>Fruits</span>
-                            </label>
-                            <label className="flex border rounded-2xl p-4 gap-2 items-center cursor-pointer">
-                                <input type="checkbox" />
-                                <span>Vegetables</span>
-                            </label>
+                            <Categories selected={categories} onChange={setCategories} />
                         </div>
                         <div>
                             <button className="bg-primary text-white rounded-2xl px-4 py-2 my-4 w-full">Save</button>
