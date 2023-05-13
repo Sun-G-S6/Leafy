@@ -4,7 +4,7 @@ import { ChevronLeft, ChevronRight } from "react-feather"
 export default function Carousel({
   children: slides,
   autoSlide = false,
-  autoSlideInterval = 3000,
+  autoSlideInterval = 5000,
 }) {
   const [curr, setCurr] = useState(0)
 
@@ -19,14 +19,14 @@ export default function Carousel({
     return () => clearInterval(slideInterval)
   }, [])
   return (
-    <div className="overflow-hidden relative" style={{ position: "relative" }}>
+    
+    <div className="overflow-hidden relative" style={{  overflow: "hidden", padding: "0", margin: "0", width: "100vw", height: "75vh", display: "flex", justifyContent: "center", alignItems: "center" }}>
       <div
         className="flex transition-transform ease-out duration-500"
         style={{ transform: `translateX(-${curr * 100}%)`, 
-        height: "100%",
-        width: "100%",
-        maxWidth: "100%", // set the maximum width of the container
-        margin: "0 auto" 
+        objectFit: "cover" ,
+        height: "100vw",
+        margin: "0"
        }}
       >
         {slides}
