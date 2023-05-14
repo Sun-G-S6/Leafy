@@ -14,21 +14,23 @@ import strawberry from '../pictures/strawberry.jpg';
 import remove from '../pictures/delete.png';
 // import cart from '../pictures/cart.jpg'
 
-export default function SearchPage() {
-    const dummyProducts = [
-        { name: "Apple", price: "$1.99", imgSrc: apple, seller: "John's Market", distance: "1.2 miles", quantity: 2 },
-        { name: "Banana", price: "$0.99", imgSrc: banana, seller: "Mary's Market", distance: "0.8 miles", quantity: 1 },
-        { name: "Carrot", price: "$0.49", imgSrc: carrot, seller: "Fresh Produce", distance: "1.5 miles", quantity: 3 },
-        { name: "Broccoli", price: "$0.79", imgSrc: broccoli, seller: "Healthy Foods", distance: "2.3 miles", quantity: 2 },
-        { name: "Grapes", price: "$2.99", imgSrc: grapes, seller: "John's Market", distance: "1.2 miles", quantity: 4 },
-        { name: "Kiwi", price: "$1.49", imgSrc: kiwi, seller: "Fresh Produce", distance: "1.5 miles", quantity: 1 },
-        { name: "Lemon", price: "$0.69", imgSrc: lemon, seller: "Healthy Foods", distance: "2.3 miles", quantity: 3 },
-        { name: "Mango", price: "$2.49", imgSrc: mango, seller: "Mary's Market", distance: "0.8 miles", quantity: 2 },
-        { name: "Orange", price: "$0.89", imgSrc: orange, seller: "John's Market", distance: "1.2 miles", quantity: 1 },
-        { name: "Pear", price: "$1.29", imgSrc: pear, seller: "Fresh Produce", distance: "1.5 miles", quantity: 5 },
-        { name: "Pineapple", price: "$3.99", imgSrc: pineapple, seller: "Healthy Foods", distance: "2.3 miles", quantity: 2 },
-        { name: "Strawberry", price: "$1.99", imgSrc: strawberry, seller: "Mary's Market", distance: "0.8 miles", quantity: 3 },
-    ];
+export default function SearchPage(products) {
+    // const dummyProducts = [
+    //     { name: "Apple", price: "$1.99", imgSrc: apple, seller: "John's Market", distance: "1.2 miles", quantity: 2 },
+    //     { name: "Banana", price: "$0.99", imgSrc: banana, seller: "Mary's Market", distance: "0.8 miles", quantity: 1 },
+    //     { name: "Carrot", price: "$0.49", imgSrc: carrot, seller: "Fresh Produce", distance: "1.5 miles", quantity: 3 },
+    //     { name: "Broccoli", price: "$0.79", imgSrc: broccoli, seller: "Healthy Foods", distance: "2.3 miles", quantity: 2 },
+    //     { name: "Grapes", price: "$2.99", imgSrc: grapes, seller: "John's Market", distance: "1.2 miles", quantity: 4 },
+    //     { name: "Kiwi", price: "$1.49", imgSrc: kiwi, seller: "Fresh Produce", distance: "1.5 miles", quantity: 1 },
+    //     { name: "Lemon", price: "$0.69", imgSrc: lemon, seller: "Healthy Foods", distance: "2.3 miles", quantity: 3 },
+    //     { name: "Mango", price: "$2.49", imgSrc: mango, seller: "Mary's Market", distance: "0.8 miles", quantity: 2 },
+    //     { name: "Orange", price: "$0.89", imgSrc: orange, seller: "John's Market", distance: "1.2 miles", quantity: 1 },
+    //     { name: "Pear", price: "$1.29", imgSrc: pear, seller: "Fresh Produce", distance: "1.5 miles", quantity: 5 },
+    //     { name: "Pineapple", price: "$3.99", imgSrc: pineapple, seller: "Healthy Foods", distance: "2.3 miles", quantity: 2 },
+    //     { name: "Strawberry", price: "$1.99", imgSrc: strawberry, seller: "Mary's Market", distance: "0.8 miles", quantity: 3 },
+    // ];
+
+    const dummyProducts = products;
 
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResults, setSearchResults] = useState(dummyProducts);
@@ -262,6 +264,7 @@ export default function SearchPage() {
                 )}
                 {searchResults.length > 0 && (
                     <div
+                        
                         style={{
                             display: "grid",
                             gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
