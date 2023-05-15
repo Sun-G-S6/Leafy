@@ -23,37 +23,39 @@ export default function ProductsPage() {
                     </Link>
                 </div>
                 
-                <div className="mt-4">
-                    {products.length > 0 && products.map(product => (
-                        <div className="bg-gray-200 p-4 rounded-2xl">
+            <div className="mt-4">
+                {products.length > 0 &&
+                    products.map((product) => (
+                        <Link
+                            to={'/account/products/' + product._id}
+                            className="cursor-pointer bg-gray-200 p-4 rounded-2xl block"
+                            key={product._id}
+                        >
                             <h2 className="text-xl">{product.name}</h2>
                             <div className="flex gap-3">
                                 <div className="mt-3 w-32 h-32 bg-gray-300 shrink-0">
-                                    {product.photos.length > 0 && (
-                                        <img src={product.photos[0]} alt="" />
-                                    )}
+                                    {product.photos.length > 0 && <img src={product.photos[0]} alt="" />}
                                 </div>
                                 <p className="text-gray-500 grow-0">{product.description}</p>
                                 <div className="flex flex-col gap-1 text-right">
                                     <div className="flex gap-1">
-                                        <span className="">Price: $</span>
-                                        <span className="">{product.price}</span>
+                                        <span>Price: $</span>
+                                        <span>{product.price}</span>
                                     </div>
                                     <div className="flex gap-1">
-                                        <span className="">Quantity:</span>
-                                        <span className="">{product.quantity}</span>
+                                        <span>Quantity:</span>
+                                        <span>{product.quantity}</span>
                                     </div>
                                     <div className="flex gap-1">
-                                        <span className="">Category:</span>
-                                        <span className="">{product.category}</span>
+                                        <span>Category:</span>
+                                        <span>{product.category}</span>
                                     </div>
                                 </div>
                             </div>
-                            
-                        </div>
-                        
+                        </Link>
                     ))}
-                </div>
+            </div>
+
 
         </div>
        
