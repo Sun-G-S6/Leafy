@@ -148,4 +148,37 @@ app.get('/products', (req, res) => {
     });
 });
 
+app.get('/products/:id', async (req, res) => {
+    const {id} = req.params;
+    res.json(await Product.findById(id));
+});
+
+app.put('/products', async (req, res) => {
+    const { token } = req.cookies;
+    const { 
+        id,
+        name,
+        price,
+        quantity,
+        addedPhotos,
+        description,
+        categories } = req.body;
+    jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+        const productDoc = await Product.findById(id);
+        if (userData.id === productDoc.owner.toString()) {
+            productDoc.set({
+                name,
+                price,
+                quantity,
+                photos:addedPhotos,
+                description,
+                category:categories
+            });
+            await productDoc.save();
+            res.json('ok');
+        }
+    });
+
+});
+
 app.listen(4000);

@@ -33,8 +33,8 @@ export default function ProductsPage() {
                         >
                             <h2 className="text-xl">{product.name}</h2>
                             <div className="flex gap-3">
-                                <div className="mt-3 w-32 h-32 bg-gray-300 shrink-0">
-                                    {product.photos.length > 0 && <img src={product.photos[0]} alt="" />}
+                                <div className="flex mt-3 w-32 h-32 shrink-0">
+                                    {product.photos.length > 0 && <img className="rounded-2xl object-cover w-full h-full" src={'http://localhost:4000/uploads/' + product.photos[0]} alt="" />}
                                 </div>
                                 <p className="text-gray-500 grow-0">{product.description}</p>
                                 <div className="flex flex-col gap-1 text-right">

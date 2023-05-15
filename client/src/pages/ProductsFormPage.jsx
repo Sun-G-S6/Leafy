@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Categories from './Categories';
 import PhotosUploader from '../PhotosUploader';
 import AccountNav from './AccountNav';
 import axios from 'axios';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 
 export default function ProductsFormPage() {
+    const { id } = useParams();
     const [name, setName] = useState('');
     const [price, setPrice] = useState('');
     const [quantity, setQuantity] = useState('');
@@ -14,17 +15,41 @@ export default function ProductsFormPage() {
     const [categories, setCategories] = useState([]);
     const [redirect, setRedirect] = useState(false);
 
-    async function addNewPlace(ev) {
+    useEffect(() => {
+        if (!id) {
+            return;
+        }
+        axios.get('/products/' + id).then(response => {
+            const {data} = response;
+            setName(data.name);
+            setPrice(data.price);
+            setQuantity(data.quantity);
+            setAddedPhotos(data.photos);
+            setDescription(data.description);
+            setCategories(data.category);
+        });
+    }, [id]);
+
+    async function savePlace(ev) {
         ev.preventDefault();
-        await axios.post('/products', {
+        const placeData = {
             name,
             price,
             quantity,
             addedPhotos,
             description,
             categories
-        });
-        setRedirect(true);
+        };
+        if (id) {
+            await axios.put('/products', {
+                id, ...placeData
+            });
+            setRedirect(true);
+        } else {
+            await axios.post('/products', placeData);
+            setRedirect(true);
+        }
+        
     }
 
     if (redirect) {
@@ -34,7 +59,7 @@ export default function ProductsFormPage() {
     return(
         <div>
             <AccountNav />
-            <form onSubmit={addNewPlace}>
+            <form onSubmit={savePlace}>
                 <h2 className="text-2xl mt-4">Name</h2>
                 <p className="text-gray-500 text-sm">Name of your product</p>
                 <input
@@ -73,6 +98,7 @@ export default function ProductsFormPage() {
                 <div className="grid grid-cols-2 gap-2 mt-2">
                     <Categories selected={categories} onChange={setCategories} />
                 </div>
+
                 <div>
                     <button className="bg-primary text-white rounded-2xl px-4 py-2 my-4 w-full">Save</button>
                 </div>
