@@ -1,20 +1,19 @@
-import { Link, useParams } from "react-router-dom";
-import { useState } from "react";
-import Categories from "./Categories";
-import PhotosUploader from "../PhotosUploader";
+import { Link } from "react-router-dom";
+import AccountNav from "./AccountNav";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 export default function ProductsPage() {
-    const {action} = useParams();
-    const [name, setName] = useState('');
-    const [price, setPrice] = useState('');
-    const [quantity, setQuantity] = useState('');
-    const [addedPhotos, setAddedPhotos] = useState([]);
-    const [description, setDescription] = useState('');
-    const [categories, setCategories] = useState([]);
+    const [products, setProducts] = useState([]);
+    useEffect(() => {
+        axios.get('/products').then(({data}) => {
+        setProducts(data);
+        });
+    }, []);
 
     return(
         <div>
-            {action !== 'new' && (
+            <AccountNav />
                 <div className="text-center">
                     <Link className="inline-flex gap-1 bg-primary text-white py-2 px-6 rounded-full" to={'/account/products/new'}>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -23,55 +22,42 @@ export default function ProductsPage() {
                         Add new product
                     </Link>
                 </div>
-            )}
-            {action === 'new' && (
-                <div>
-                    <form>
-                        <h2 className="text-2xl mt-4">Name</h2>
-                            <p className="text-gray-500 text-sm">Name of your product</p>
-                            <input 
-                                type="text" 
-                                value={name} 
-                                onChange={ev => setName(ev.target.value)} 
-                                placeholder="Example: Orange, Peach, etc..." />
+                
+                <div className="mt-4">
+                    {products.length > 0 && products.map(product => (
+                        <div className="bg-gray-200 p-4 rounded-2xl">
+                            <h2 className="text-xl">{product.name}</h2>
+                            <div className="flex gap-3">
+                                <div className="mt-3 w-32 h-32 bg-gray-300 shrink-0">
+                                    {product.photos.length > 0 && (
+                                        <img src={product.photos[0]} alt="" />
+                                    )}
+                                </div>
+                                <p className="text-gray-500 grow-0">{product.description}</p>
+                                <div className="flex flex-col gap-1 text-right">
+                                    <div className="flex gap-1">
+                                        <span className="">Price: $</span>
+                                        <span className="">{product.price}</span>
+                                    </div>
+                                    <div className="flex gap-1">
+                                        <span className="">Quantity:</span>
+                                        <span className="">{product.quantity}</span>
+                                    </div>
+                                    <div className="flex gap-1">
+                                        <span className="">Category:</span>
+                                        <span className="">{product.category}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
                         
-                        <h2 className="text-2xl mt-4">Price</h2>
-                            <p className="text-gray-500 text-sm">Price of your product</p>
-                            <input 
-                                className="border rounded-md" 
-                                type="number" 
-                                value={price} 
-                                onChange={ev => setPrice(ev.target.value)} 
-                                placeholder="Example: 10.99" />
-
-                        <h2 className="text-2xl mt-4">Quantity</h2>
-                            <p className="text-gray-500 text-sm">Quantity of your product</p>
-                            <input 
-                                className="border rounded-md" 
-                                type="number" 
-                                value={quantity} 
-                                onChange={ev => setQuantity(ev.target.value)} 
-                                placeholder="Example: 100" />
-
-                        <h2 className="text-2xl mt-4">Photos</h2>
-                        <PhotosUploader addedPhotos={addedPhotos} onChange={setAddedPhotos} />
-
-                        <h2 className="text-2xl mt-4">Description</h2>
-                        <p className="text-gray-500 text-sm">Description of your product</p>
-                        <textarea className="w-full border rounded-2xl" value={description} onChange={ev => setDescription(ev.target.value)} />
-
-                        <h2 className="text-2xl mt-4">Categories</h2>
-                        <p className="text-gray-500 text-sm">Select your product category</p>
-                        <div className="grid grid-cols-2 gap-2 mt-2">
-                            <Categories selected={categories} onChange={setCategories} />
-                        </div>
-                        <div>
-                            <button className="bg-primary text-white rounded-2xl px-4 py-2 my-4 w-full">Save</button>
-                        </div>
-                    </form>
+                    ))}
                 </div>
-            )}
+
         </div>
        
     );
 }
+
+//4:14

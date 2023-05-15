@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('./models/User.js');
+const Product = require('./models/Product.js');
 const cookieParser = require('cookie-parser');
 const imageDownloader = require('image-downloader');
 const multer = require('multer');
@@ -37,7 +38,7 @@ app.get('/test' , (req,res) => {
 //booking
 //3TzCX67xnYihupU2
 app.post('/register', async (req,res) => {
-    const {fName, lName, email, password} = req.body;
+    const {fName, lName, phone, email, password} = req.body;
 
     try{
         const userDoc = await User.create({
@@ -114,6 +115,37 @@ app.post('/upload', photosMiddleware.array('photos', 100), (req,res) => {
         uploadedFiles.push(newPath.replace('uploads\\', ''));
     }
     res.json(uploadedFiles);
+});
+
+app.post('/products', function (req, res) {
+    const { token } = req.cookies;
+    const { name, 
+        price, 
+        quantity, 
+        addedPhotos, 
+        description, 
+        categories } = req.body;
+    jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+        if (err) throw err;
+        const placeDoc = await Product.create({
+            owner:userData.id,
+            name,
+            price,
+            quantity,
+            photos:addedPhotos,
+            description,
+            category:categories
+        });
+        res.json(placeDoc);
+    });
+});
+
+app.get('/products', (req, res) => {
+    const { token } = req.cookies;
+    jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+       const { id } = userData;
+       res.json( await Product.find({ owner: id }) );
+    });
 });
 
 app.listen(4000);
