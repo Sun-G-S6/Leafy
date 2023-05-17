@@ -140,7 +140,7 @@ app.post('/products', function (req, res) {
     });
 });
 
-app.get('/products', (req, res) => {
+app.get('/user-products', (req, res) => {
     const { token } = req.cookies;
     jwt.verify(token, jwtSecret, {}, async (err, userData) => {
        const { id } = userData;
@@ -179,6 +179,10 @@ app.put('/products', async (req, res) => {
         }
     });
 
+});
+
+app.get('/products', async (req, res) => {
+    res.json( await Product.find() );
 });
 
 app.listen(4000);

@@ -6,7 +6,7 @@ import axios from "axios";
 export default function ProductsPage() {
     const [products, setProducts] = useState([]);
     useEffect(() => {
-        axios.get('/products').then(({data}) => {
+        axios.get('/user-products').then(({data}) => {
         setProducts(data);
         });
     }, []);

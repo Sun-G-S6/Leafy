@@ -69,7 +69,7 @@ export default function ProductsFormPage() {
                     placeholder="Example: Orange, Peach, etc..." />
 
                 <h2 className="text-2xl mt-4">Price</h2>
-                <p className="text-gray-500 text-sm">Price of your product</p>
+                <p className="text-gray-500 text-sm">Total price of your product</p>
                 <input
                     className="border rounded-md"
                     type="number"
