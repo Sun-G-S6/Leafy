@@ -7,6 +7,12 @@ const UserSchema = new Schema({
     email: {type:String,unique:true},
     phone: String,
     password: String,
+    address: {
+        street: String,
+        city: String,
+        state: String,
+        postalCode: Number,
+    },
 });
 
 const UserModel = mongoose.model('User', UserSchema);

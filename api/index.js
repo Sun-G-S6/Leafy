@@ -37,23 +37,29 @@ app.get('/test' , (req,res) => {
 });
 //booking
 //3TzCX67xnYihupU2
-app.post('/register', async (req,res) => {
-    const {fName, lName, phone, email, password} = req.body;
+app.post('/register', async (req, res) => {
+    const { fName, lName, phone, email, password, address } = req.body;
 
-    try{
+    try {
         const userDoc = await User.create({
             fName,
             lName,
             email,
             phone,
             password: bcrypt.hashSync(password, bcryptSalt),
+            address: {
+                street: address.street,
+                city: address.city,
+                state: address.state,
+                postalCode: address.postalCode,
+            },
         });
         res.json(userDoc);
     } catch (e) {
         res.status(422).json(e);
     }
-    
 });
+
 
 app.post('/login', async (req,res) => {
     const {email,password} = req.body;
