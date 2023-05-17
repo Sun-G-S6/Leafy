@@ -12,6 +12,7 @@ import SearchPage from './pages/SearchPage';
 import AccountPage from './pages/AccountPage';
 import ProductsPage from './pages/ProductsPages';
 import ProductsFormPage from './pages/ProductsFormPage';
+import SearchedProductPage from './pages/SearchedProductPage';
 
 
 axios.defaults.baseURL = 'http://127.0.0.1:4000';
@@ -32,7 +33,7 @@ function App() {
           <Route path="/account/products" element={<ProductsPage />} />
           <Route path="/account/products/new" element={<ProductsFormPage />} />
           <Route path="/account/products/:id" element={<ProductsFormPage />} />
-
+          <Route path="/product/:id" element={<SearchedProductPage />} />
         </Route>
       </Routes>
     </UserContextProvider>

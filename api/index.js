@@ -191,4 +191,21 @@ app.get('/products', async (req, res) => {
     res.json( await Product.find() );
 });
 
+app.get('/users/:id', async (req, res) => {
+    console.log('fetching user information');
+    const { id } = req.params;
+
+    try {
+        const user = await User.findById(id, 'fName lName email phone address');
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+        res.json(user);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Failed to fetch user information' });
+    }
+});
+
+
 app.listen(4000);
