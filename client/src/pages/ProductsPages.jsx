@@ -31,16 +31,20 @@ export default function ProductsPage() {
                             className="cursor-pointer bg-gray-200 p-4 rounded-2xl block"
                             key={product._id}
                         >
-                            <h2 className="text-xl">{product.name}</h2>
-                            <div className="flex gap-3">
-                                <div className="flex mt-3 w-32 h-32 shrink-0">
+                            <h2 className="text-2xl">{product.name}</h2>
+                            <div className="flex flex-row gap-3 ">
+                                <div className="flex mt-3 w-40 h-40 shrink-0">
                                     {product.photos.length > 0 && <img className="rounded-2xl object-cover w-full h-full" src={'http://localhost:4000/uploads/' + product.photos[0]} alt="" />}
                                 </div>
-                                <p className="text-gray-500 grow-0">{product.description}</p>
-                                <div className="flex flex-col gap-1 text-right">
+                                <p className="text-gray-500 mt-6">{product.description}</p>
+                                <div className="flex flex-col gap-1 shrink-0 ml-10 font-semibold">
                                     <div className="flex gap-1">
-                                        <span>Price: $</span>
-                                        <span>{product.price}</span>
+                                        <span>Price per unit: $</span>
+                                        <span>{product.pricePerUnit}</span>
+                                    </div>
+                                    <div className="flex gap-1">
+                                        <span>Total Price: $</span>
+                                        <span>{product.totalPrice}</span>
                                     </div>
                                     <div className="flex gap-1">
                                         <span>Quantity:</span>

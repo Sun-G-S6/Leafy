@@ -126,7 +126,8 @@ app.post('/upload', photosMiddleware.array('photos', 100), (req,res) => {
 app.post('/products', function (req, res) {
     const { token } = req.cookies;
     const { name, 
-        price, 
+        totalPrice,
+        pricePerUnit, 
         quantity, 
         addedPhotos, 
         description, 
@@ -136,7 +137,8 @@ app.post('/products', function (req, res) {
         const placeDoc = await Product.create({
             owner:userData.id,
             name,
-            price,
+            totalPrice,
+            pricePerUnit,
             quantity,
             photos:addedPhotos,
             description,
@@ -164,7 +166,8 @@ app.put('/products', async (req, res) => {
     const { 
         id,
         name,
-        price,
+        totalPrice,
+        pricePerUnit,
         quantity,
         addedPhotos,
         description,
@@ -174,7 +177,8 @@ app.put('/products', async (req, res) => {
         if (userData.id === productDoc.owner.toString()) {
             productDoc.set({
                 name,
-                price,
+                totalPrice,
+                pricePerUnit,
                 quantity,
                 photos:addedPhotos,
                 description,

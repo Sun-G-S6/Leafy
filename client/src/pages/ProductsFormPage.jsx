@@ -8,7 +8,8 @@ import { Navigate, useParams } from 'react-router-dom';
 export default function ProductsFormPage() {
     const { id } = useParams();
     const [name, setName] = useState('');
-    const [price, setPrice] = useState('');
+    const [totalPrice, setTotalPrice] = useState('');
+    const [pricePerUnit, setPricePerUnit] = useState('');
     const [quantity, setQuantity] = useState('');
     const [addedPhotos, setAddedPhotos] = useState([]);
     const [description, setDescription] = useState('');
@@ -22,7 +23,8 @@ export default function ProductsFormPage() {
         axios.get('/products/' + id).then(response => {
             const {data} = response;
             setName(data.name);
-            setPrice(data.price);
+            setTotalPrice(data.totalPrice);
+            setPricePerUnit(data.pricePerUnit);
             setQuantity(data.quantity);
             setAddedPhotos(data.photos);
             setDescription(data.description);
@@ -34,7 +36,8 @@ export default function ProductsFormPage() {
         ev.preventDefault();
         const placeData = {
             name,
-            price,
+            totalPrice,
+            pricePerUnit,
             quantity,
             addedPhotos,
             description,
@@ -68,14 +71,23 @@ export default function ProductsFormPage() {
                     onChange={ev => setName(ev.target.value)}
                     placeholder="Example: Orange, Peach, etc..." />
 
-                <h2 className="text-2xl mt-4">Price</h2>
+                <h2 className="text-2xl mt-4">Total Price</h2>
                 <p className="text-gray-500 text-sm">Total price of your product</p>
                 <input
                     className="border rounded-md"
                     type="number"
-                    value={price}
-                    onChange={ev => setPrice(ev.target.value)}
+                    value={totalPrice}
+                    onChange={ev => setTotalPrice(ev.target.value)}
                     placeholder="Example: 10.99" />
+
+                <h2 className="text-2xl mt-4">Price per unit</h2>
+                <p className="text-gray-500 text-sm">Price for a single unit of your product</p>
+                <input
+                    className="border rounded-md"
+                    type="number"
+                    value={pricePerUnit}
+                    onChange={ev => setPricePerUnit(ev.target.value)}
+                    placeholder="Example: 1.50" />
 
                 <h2 className="text-2xl mt-4">Quantity</h2>
                 <p className="text-gray-500 text-sm">Quantity of your product</p>

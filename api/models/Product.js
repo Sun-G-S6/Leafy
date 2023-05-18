@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 const productSchema = new mongoose.Schema({
     owner: {type:mongoose.Schema.Types.ObjectId, ref:'User'},
     name: String,
-    price: Number,
+    totalPrice: Number,
+    pricePerUnit: Number,
     quantity: Number,
     photos: [String],
     description: String,

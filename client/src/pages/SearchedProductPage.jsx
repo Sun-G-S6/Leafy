@@ -1,13 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-
-function formatPhoneNumber(phone) {
-    // Apply the desired format (xxx)-xxx-xxxx
-    const formattedPhone = `(${phone.slice(0, 3)})-${phone.slice(3, 6)}-${phone.slice(6)}`;
-
-    return formattedPhone;
-}
+import BookingWidget from "./BookingWidget";
 
 export default function SearchedProductPage() {
     const { id } = useParams();
@@ -100,7 +94,6 @@ export default function SearchedProductPage() {
                     Show all photos
                 </button>
             </div>
-
             <div className="mt-8 grid gap-8 grid-cols-1 md:grid-cols-[2fr_1fr] ">
                 <div className="p-4">
                     <div className="my-4">
@@ -112,16 +105,7 @@ export default function SearchedProductPage() {
                         Category: {product.category}
                     </div>
                 </div>
-                <div className="border bg-white shadow-black rounded-2xl p-4 flex flex-col justify-center">
-                    <div className="mb-2">
-                        <div className="text-2xl text-center">Total Price: ${product.price}</div>
-                        Contact the seller to schedule pickup/delivery and payment.<br />
-                        Seller Name: {seller.fName}<br />
-                        Email: {seller.email}<br />
-                        Phone: {formatPhoneNumber(seller.phone)}<br />
-                    </div>
-                    <button className="primary">Buy this product</button>
-                </div>
+                <BookingWidget seller={seller} product={product} />
             </div>
         </div>
     );

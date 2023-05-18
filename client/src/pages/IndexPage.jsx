@@ -22,8 +22,13 @@ export default function IndexPage() {
                     <h2 className="leading-4 ">{product.name}</h2>
                     <h3 className="leading-4 text-sm text-gray-500">Quantity: {product.quantity}</h3>
                     <h3 className="leading-4 text-sm text-gray-500">Type: {product.category}</h3>
-                    <div className="mt-1">
-                        Total Price: <span className="leading-4 text-sm font-bold">${product.price} </span>
+                    <div className="flex mt-1">
+                        <div className="flex-grow text-left leading-4 text-sm font-bold">
+                            Total Price: ${product.totalPrice}
+                        </div>
+                        <div className="leading-4 text-sm font-bold text-right">
+                            Price per unit: ${product.pricePerUnit}
+                        </div>
                     </div>
                 </Link>
             ))}
