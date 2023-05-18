@@ -10,6 +10,7 @@ import axios from 'axios';
 import { UserContextProvider } from './UserContext';
 import SearchPage from './pages/SearchPage';
 import AccountPage from './pages/AccountPage';
+import AccountSettingsPage from './pages/AccountSettings';
 
 
 axios.defaults.baseURL = 'http://127.0.0.1:4000';
@@ -28,6 +29,8 @@ function App() {
           <Route path="/search" element={<SearchPage />} />
           <Route path="/account/:subpage?" element={<AccountPage />} />
           <Route path="/account/:subpage/:action" element={<AccountPage />} />
+          <Route path="/accountsettings" element={<AccountSettingsPage />} />
+
         </Route>
       </Routes>
     </UserContextProvider>
