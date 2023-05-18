@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('./models/User.js');
+const Product = require('./models/Product.js');
 const cookieParser = require('cookie-parser');
 const imageDownloader = require('image-downloader');
 const multer = require('multer');
@@ -36,23 +37,29 @@ app.get('/test' , (req,res) => {
 });
 //booking
 //3TzCX67xnYihupU2
-app.post('/register', async (req,res) => {
-    const {fName, lName, email, password} = req.body;
+app.post('/register', async (req, res) => {
+    const { fName, lName, phone, email, password, address } = req.body;
 
-    try{
+    try {
         const userDoc = await User.create({
             fName,
             lName,
             email,
             phone,
             password: bcrypt.hashSync(password, bcryptSalt),
+            address: {
+                street: address.street,
+                city: address.city,
+                state: address.state,
+                postalCode: address.postalCode,
+            },
         });
         res.json(userDoc);
     } catch (e) {
         res.status(422).json(e);
     }
-    
 });
+
 
 app.post('/login', async (req,res) => {
     const {email,password} = req.body;
@@ -115,5 +122,94 @@ app.post('/upload', photosMiddleware.array('photos', 100), (req,res) => {
     }
     res.json(uploadedFiles);
 });
+
+app.post('/products', function (req, res) {
+    const { token } = req.cookies;
+    const { name, 
+        totalPrice,
+        pricePerUnit, 
+        quantity, 
+        addedPhotos, 
+        description, 
+        categories } = req.body;
+    jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+        if (err) throw err;
+        const placeDoc = await Product.create({
+            owner:userData.id,
+            name,
+            totalPrice,
+            pricePerUnit,
+            quantity,
+            photos:addedPhotos,
+            description,
+            category:categories
+        });
+        res.json(placeDoc);
+    });
+});
+
+app.get('/user-products', (req, res) => {
+    const { token } = req.cookies;
+    jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+       const { id } = userData;
+       res.json( await Product.find({ owner: id }) );
+    });
+});
+
+app.get('/products/:id', async (req, res) => {
+    const {id} = req.params;
+    res.json(await Product.findById(id));
+});
+
+app.put('/products', async (req, res) => {
+    const { token } = req.cookies;
+    const { 
+        id,
+        name,
+        totalPrice,
+        pricePerUnit,
+        quantity,
+        addedPhotos,
+        description,
+        categories } = req.body;
+    jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+        const productDoc = await Product.findById(id);
+        if (userData.id === productDoc.owner.toString()) {
+            productDoc.set({
+                name,
+                totalPrice,
+                pricePerUnit,
+                quantity,
+                photos:addedPhotos,
+                description,
+                category:categories
+            });
+            await productDoc.save();
+            res.json('ok');
+        }
+    });
+
+});
+
+app.get('/products', async (req, res) => {
+    res.json( await Product.find() );
+});
+
+app.get('/users/:id', async (req, res) => {
+    console.log('fetching user information');
+    const { id } = req.params;
+
+    try {
+        const user = await User.findById(id, 'fName lName email phone address');
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+        res.json(user);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Failed to fetch user information' });
+    }
+});
+
 
 app.listen(4000);
