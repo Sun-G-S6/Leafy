@@ -1,7 +1,8 @@
-import { Link } from "react-router-dom";
-import { Fragment, useContext } from 'react'
+import { Link, Navigate } from "react-router-dom";
+import { Fragment, useContext, useState } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { UserContext } from "./UserContext";
+import axios from "axios";
 //****************yarn add '@headlessui/react'********************/
 
 function classNames(...classes) {
@@ -9,7 +10,23 @@ function classNames(...classes) {
 }
 
 export default function Header() {
-    const {user} = useContext(UserContext);
+    const { user } = useContext(UserContext);
+    const { redirect, setRedirect } = useState(null);
+    async function logout() {
+        await axios.post('/logout');
+        setRedirect('/');
+
+    }
+
+    if (redirect) {
+        return <Navigate to={redirect} />
+    }
+
+    function getData() {
+        let mySearchInput = document.getElementById('searchInfo').value;
+        console.log(mySearchInput);
+    }
+
     return (
         <header className='flex justify-between'>
             <Link to={'/'} className='flex items-center gap-2'>
@@ -43,16 +60,21 @@ export default function Header() {
                     </div>
                 </button>
             </Link>
-            <div className='flex border border-gray-400 rounded-full py-3 px-4 shadow-md shadow-gray-300'>
-                <div className='px-2'>Search</div>
-                <Link to={"/search"}>
-                    <button className='bg-primary text-white p-1 rounded-full'>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 15.75l-2.489-2.489m0 0a3.375 3.375 0 10-4.773-4.773 3.375 3.375 0 004.774 4.774zM21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                    </button>
-                </Link>
-            </div>
+            <form>
+                <label for="search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                <div class="relative">
+                    <Link to="/search">
+                        <div class="absolute inset-y-0 left-0 flex items-center pl-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                            </svg>
+
+                        </div>
+                    </Link>
+                    <input type="search" id="searchInfo" class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-400 rounded-full shadow-md shadow-gray-300" placeholder="Search" required />
+                    <button type="submit" onClick={getData} class="text-white bg-primary absolute right-2.5 bottom-2.5 font-medium rounded-full text-sm px-4 py-2">Search</button>
+                </div>
+            </form>
             <div className='flex items-center gap-2 border border-gray-400 rounded-full py-2 px-4 shadow-md shadow-gray-300'>
                 <Menu as="div" className="relative inline-block text-left">
                     <div>
@@ -76,15 +98,17 @@ export default function Header() {
                             <div className="py-1">
                                 <Menu.Item>
                                     {({ active }) => (
-                                        <a
-                                            href="#"
-                                            className={classNames(
-                                                active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                                                'block px-4 py-2 text-sm'
-                                            )}
-                                        >
-                                            Account settings
-                                        </a>
+                                        <Link to="/account">
+                                            <a
+                                                href="#"
+                                                className={classNames(
+                                                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                                                    'block px-4 py-2 text-sm'
+                                                )}
+                                            >
+                                                Account settings
+                                            </a>
+                                        </Link>
                                     )}
                                 </Menu.Item>
 
@@ -92,6 +116,7 @@ export default function Header() {
                                     <Menu.Item>
                                         {({ active }) => (
                                             <button
+                                                onClick={logout}
                                                 type="submit"
                                                 className={classNames(
                                                     active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
@@ -107,14 +132,14 @@ export default function Header() {
                         </Menu.Items>
                     </Transition>
                 </Menu>
-                <Link to={user?'/account':'/login'} className='flex overflow-hidden'>
+                <Link to={user ? '/account' : '/login'} className='flex overflow-hidden'>
                     <div className="bg-gray-500 text-white rounded-full">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 ">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
                         </svg>
                     </div>
-                        
-                    {!!user &&(
+
+                    {!!user && (
                         <div className="pl-1">
                             {user.fName} {user.lName}
                         </div>
