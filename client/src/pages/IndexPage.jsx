@@ -12,13 +12,8 @@ export default function IndexPage() {
     return(
       <main className = "App">
         <section style={{backgroundColor: "#ffffff"}}>
-        <div style={{ backgroundColor: "#ccc", height: "10px" }}></div>
-        <div style={{ textAlign: "center" }}>
-        <h4 style={{ paddingRight: "50px", marginBottom: "1rem", fontSize: "4rem", fontWeight: "bold", fontFamily: "Open Sans", backgroundColor: "#333", color: "#f2f2f2" }}>
-          Welcome to Leafy!
-          <div style={{ backgroundColor: "#ccc", height: "10px", width: "1400px" }}></div>
-        </h4>
-      </div>
+        
+        <hr style={{borderBottom: '10px solid #ccc', paddingTop: "10px"}} />
         <div className="max-w-lg">
           <Carousel autoSlide = {true}>
             {slides.map((s) => (
@@ -32,13 +27,13 @@ export default function IndexPage() {
 
   <div style={{ backgroundColor: "#ccc", height: "10px" }}></div>
   <div style={{ textAlign: "center" }}>
-    <h4 style={{ paddingRight: "50px", marginBottom: "1rem", fontSize: "4rem", fontWeight: "bold", fontFamily: "Open Sans", backgroundColor: "#333", color: "#f2f2f2" }}>
+    <h4 style={{ paddingRight: "50px", marginBottom: "1rem", fontSize: "4rem", fontWeight: "bold", fontFamily: "Open Sans", backgroundColor: "#004600", color: "#f2f2f2" }}>
           Why Leafy?
           <div style={{ backgroundColor: "#ccc", height: "10px", width: "1400px" }}></div> 
     </h4>
     
     
-    <table style={{ borderCollapse: "collapse", margin: "auto" , backgroundColor: "#333", color: "#f2f2f2"}}>
+    <table style={{ borderCollapse: "collapse", margin: "auto" , backgroundColor: "#004600", color: "#f2f2f2"}}>
       <thead>
         <tr style={{borderTop: "10px solid #ccc", borderBottom: "10px solid #ccc" , paddingBottom: "5rem"}}>
 
@@ -60,17 +55,17 @@ export default function IndexPage() {
       </thead>
       <tbody>
         <tr style={{ borderTop: "1px solid #ccc", borderRight: "10px solid #ccc", borderLeft: "10px solid #ccc", borderBottom: "10px sold #ccc" }}>
-          <td style={{ padding: "0.5rem" }}>
-            <img src ="https://cdn-icons-png.flaticon.com/512/3090/3090423.png"height="512" width="512" />
+          <td style={{ padding: "0.5rem" , textAlign: "center" }}>
+            <img src ="https://cdn-icons-png.flaticon.com/512/3090/3090423.png"height="350" width="350" />
             </td>
 
 
-          <td style={{ padding: "0.5rem" }}>
-            <img src = "https://cdn-icons-png.flaticon.com/512/6091/6091840.png" height="512" width="512"/>
+          <td style={{ padding: "0.5rem", textAlign: "center" , alignContent: "center" }}>
+            <img src = "https://cdn-icons-png.flaticon.com/512/6091/6091840.png" height="350" width="350"/>
             </td>
 
-            <td style={{ padding: "0.5rem" }}>
-            <img src = "https://cdn-icons-png.flaticon.com/512/3637/3637990.png" height="412" width="412"/> 
+            <td style={{ padding: "0.5rem" , textAlign: "center" }}>
+            <img src = "https://cdn-icons-png.flaticon.com/512/3637/3637990.png" height="350" width="350"/> 
           </td>
 
           
@@ -94,6 +89,7 @@ export default function IndexPage() {
 
 
       </tbody>
+
     </table>
    <button style={{
     backgroundColor: "#333",
@@ -110,7 +106,7 @@ export default function IndexPage() {
 
 
     
-    <table style={{ paddingTop: "10px", paddingBottom: "10px" , backgroundColor: "#333", color: "#f2f2f2"}}>
+    <table style={{ paddingTop: "10px", paddingBottom: "10px" , backgroundColor: "#004600", color: "#f2f2f2"}}>
     <tbody style={{borderTop: '10px solid #ccc', borderBottom: '10px solid #ccc', borderLeft: '10px solid #ccc', borderRight: '10px solid #ccc'}}>
         <tr>
           <td>
