@@ -24,10 +24,12 @@ const useStyle = {
     }
 };
 
+
 export default function AccountSettingsPage() {
     const {user} = useContext(UserContext);
     const [fName, setFirstName] = useState('');
     const [lName, setLastName] = useState('');
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [phone, setPhone] = useState('');

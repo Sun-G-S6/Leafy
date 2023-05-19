@@ -8,6 +8,7 @@ export default function SearchedProductPage() {
     const [product, setProduct] = useState(null);
     const [showAllPhotos, setShowAllPhotos] = useState(false);
     const [seller, setSeller] = useState(null);
+    console.log(id);
 
     useEffect(() => {
         if (!id) {

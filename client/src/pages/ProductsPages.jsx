@@ -28,7 +28,7 @@ export default function ProductsPage() {
                     products.map((product) => (
                         <Link
                             to={'/account/products/' + product._id}
-                            className="cursor-pointer bg-gray-200 p-4 rounded-2xl block"
+                            className="cursor-pointer bg-gray-200 p-4 rounded-2xl block mb-7"
                             key={product._id}
                         >
                             <h2 className="text-2xl">{product.name}</h2>
