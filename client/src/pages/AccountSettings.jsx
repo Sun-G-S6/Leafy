@@ -18,7 +18,7 @@ const useStyle = {
     }
 };
 
-export default function AccountSettingsPage() {
+export default function AccountSettings() {
     const [firstname, setFirstName] = useState('');
     const [lastname, setLastName] = useState('');
     const [email, setEmail] = useState('');
