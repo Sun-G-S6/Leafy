@@ -13,7 +13,7 @@ import AccountPage from './pages/AccountPage';
 import ProductsPage from './pages/ProductsPages';
 import ProductsFormPage from './pages/ProductsFormPage';
 import SearchedProductPage from './pages/SearchedProductPage';
-
+import AccountSettings from './pages/AccountSettings';
 
 axios.defaults.baseURL = 'http://127.0.0.1:4000';
 axios.defaults.withCredentials = true;
@@ -30,6 +30,7 @@ function App() {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/search" element={<SearchPage />} />
           <Route path="/account" element={<AccountPage />} />
+          <Route path="/account/settings" element={<AccountSettings />} />
           <Route path="/account/products" element={<ProductsPage />} />
           <Route path="/account/products/new" element={<ProductsFormPage />} />
           <Route path="/account/products/:id" element={<ProductsFormPage />} />

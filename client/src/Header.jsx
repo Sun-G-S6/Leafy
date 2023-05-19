@@ -76,23 +76,22 @@ export default function Header() {
                             <div className="py-1">
                                 <Menu.Item>
                                     {({ active }) => (
-                                        <a
-                                            href="#"
+                                        <Link 
+                                            to={user?'/account/settings':'/login'}
                                             className={classNames(
                                                 active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                                                 'block px-4 py-2 text-sm'
                                             )}
                                         >
                                             Account settings
-                                        </a>
+                                        </Link>
                                     )}
                                 </Menu.Item>
-
-                               
                             </div>
                         </Menu.Items>
                     </Transition>
                 </Menu>
+
                 <Link to={user?'/account':'/login'} className='flex overflow-hidden'>
                     <div className="bg-gray-500 text-white rounded-full">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 ">

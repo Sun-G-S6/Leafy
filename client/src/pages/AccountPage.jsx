@@ -6,6 +6,7 @@ import ProductsPages from "./ProductsPages";
 import AccountNav from "./AccountNav";
 
 export default function AccountPage() {
+    
     const [redirect, setRedirect] = useState(null);
     const {ready, user, setUser} = useContext(UserContext);
     let { subpage } = useParams();
