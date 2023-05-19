@@ -76,7 +76,7 @@ export default function Header() {
                             <div className="py-1">
                                 <Menu.Item>
                                     {({ active }) => (
-                                        <a
+                                        <Link to={'accountsettings'}
                                             href="#"
                                             className={classNames(
                                                 active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
@@ -84,7 +84,7 @@ export default function Header() {
                                             )}
                                         >
                                             Account settings
-                                        </a>
+                                        </Link>
                                     )}
                                 </Menu.Item>
 
