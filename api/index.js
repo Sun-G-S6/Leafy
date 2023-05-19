@@ -27,7 +27,7 @@ app.use(cookieParser());
 app.use('/uploads', express.static(__dirname+'/uploads'));
 app.use(cors({
     credentials: true,
-    origin: 'http://127.0.0.1:5173'
+    origin: 'http://localhost:5173' //Changes for jackie
 }));
 
 mongoose.connect(process.env.MONGO_URL);
@@ -211,5 +211,34 @@ app.get('/users/:id', async (req, res) => {
     }
 });
 
+app.put('/updateAccountsettings', async (req, res) => {
+    const { token } = req.cookies;
+    const { 
+        id,
+        fName,
+        lName,
+        email,
+        password,
+        phone,
+        address
+        //image
+        } = req.body;
+    jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+        const userDoc = await User.findById(id);
+        if (userData.id === userDoc.id) {
+            userDoc.fName = fName || userDoc.fName;
+            userDoc.lName = lName || userDoc.lName;
+            userDoc.email = email || userDoc.email;
+            userDoc.password = bcrypt.hashSync(password, bcryptSalt) || userDoc.password;
+            userDoc.phone = phone || userDoc.phone;
+            userDoc.address = address || userDoc.address;
 
-app.listen(4000);
+            await userDoc.save();
+            res.json('ok');
+        }
+    });
+});
+
+
+
+app.listen(4000, "0.0.0.0"); //added for jackie
