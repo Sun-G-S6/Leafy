@@ -27,7 +27,8 @@ app.use(cookieParser());
 app.use('/uploads', express.static(__dirname+'/uploads'));
 app.use(cors({
     credentials: true,
-    origin: 'http://localhost:5173' //Changes for jackie
+    //origin: 'http://localhost:5173' //Changes for jackie
+    origin: 'http://127.0.0.1:5173'
 }));
 
 mongoose.connect(process.env.MONGO_URL);
@@ -46,13 +47,13 @@ app.post('/register', async (req, res) => {
             lName,
             email,
             phone,
-            password: bcrypt.hashSync(password, bcryptSalt),
-            address: {
-                street: address.street,
-                city: address.city,
-                state: address.state,
-                postalCode: address.postalCode,
-            },
+            password: bcrypt.hashSync(password, bcryptSalt)
+            // address: {
+            //     street: address.street,
+            //     city: address.city,
+            //     state: address.state,
+            //     postalCode: address.postalCode,
+            // },
         });
         res.json(userDoc);
     } catch (e) {
@@ -239,6 +240,26 @@ app.put('/updateAccountsettings', async (req, res) => {
     });
 });
 
+app.put('/updateProductquan', async (req, res) => {
+    const {token} = req.cookies;
+    const {
+        id,
+        quantity
+    } = req.body;
+    
+    //console.log(req.body);
+    jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+    const itemDoc = await Product.findById(id);
+    console.log(itemDoc);
+    
+    itemDoc.set({
+        quantity: quantity
+    })
+    await itemDoc.save();
+    res.json('ok');
+    }
+    );
+});
 
-
-app.listen(4000, "0.0.0.0"); //added for jackie
+//app.listen(4000, "0.0.0.0"); //added for jackie
+app.listen(4000); //added for jackie

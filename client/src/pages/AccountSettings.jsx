@@ -101,7 +101,7 @@ export default function AccountSettingsPage() {
                 <h1 className="mt-3 mb-5">Select image:  <br />
                     <input type="file" accept="image/*" onChange={handleImageChange} />
                 </h1>
-                <h1 className="mt-10" style={useStyle.infoTag}> Change information: </h1> <br />
+                <h1 className="mt-10" style={useStyle.infoTag}> Enter any information you would like to update: </h1> <br />
                 <form className="flex flex-col justify-around" onSubmit={handleSubmit}>
                     <div className='flex'>
                     <TextField input type="text" style={{ width: 250 }} size="small" label="First Name" value={fName} onChange={handleFirstNameChange} />
