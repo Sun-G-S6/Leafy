@@ -1,19 +1,20 @@
 import './App.css'
 import {Route,Routes} from "react-router-dom";
+import axios from 'axios';
+import { UserContextProvider } from './UserContext';
+
 import IndexPage from './pages/IndexPage';
 import LoginPage from './pages/LoginPage';
 import Layout from './Layout';
 import AboutPage from './pages/AboutPage';
 import HowPage from './pages/HowPage';
 import RegisterPage from './pages/RegisterPage';
-import axios from 'axios';
-import { UserContextProvider } from './UserContext';
 import SearchPage from './pages/SearchPage';
 import AccountPage from './pages/AccountPage';
 import ProductsPage from './pages/ProductsPages';
 import ProductsFormPage from './pages/ProductsFormPage';
 import SearchedProductPage from './pages/SearchedProductPage';
-
+import NewAccountSettingsPage from './pages/NewAccountSettingsPage';
 
 axios.defaults.baseURL = 'http://127.0.0.1:4000';
 axios.defaults.withCredentials = true;
@@ -34,6 +35,7 @@ function App() {
           <Route path="/account/products/new" element={<ProductsFormPage />} />
           <Route path="/account/products/:id" element={<ProductsFormPage />} />
           <Route path="/product/:id" element={<SearchedProductPage />} />
+          <Route path="/account/settings" element={<NewAccountSettingsPage />} />
         </Route>
       </Routes>
     </UserContextProvider>
