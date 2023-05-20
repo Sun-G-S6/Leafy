@@ -221,8 +221,8 @@ app.put('/updateAccountsettings', async (req, res) => {
         email,
         password,
         phone,
-        address
-        //image
+        address,
+        image
         } = req.body;
     jwt.verify(token, jwtSecret, {}, async (err, userData) => {
         const userDoc = await User.findById(id);
@@ -233,6 +233,7 @@ app.put('/updateAccountsettings', async (req, res) => {
             userDoc.password = bcrypt.hashSync(password, bcryptSalt) || userDoc.password;
             userDoc.phone = phone || userDoc.phone;
             userDoc.address = address || userDoc.address;
+            userDoc.image = toString(image) || userDoc.image;
 
             await userDoc.save();
             res.json('ok');
@@ -250,7 +251,6 @@ app.put('/updateProductquan', async (req, res) => {
     //console.log(req.body);
     jwt.verify(token, jwtSecret, {}, async (err, userData) => {
     const itemDoc = await Product.findById(id);
-    console.log(itemDoc);
     
     itemDoc.set({
         quantity: quantity
