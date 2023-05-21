@@ -61,13 +61,13 @@ export default function SearchedProductPage() {
         <div className="mt-4 bg-gray-100 -mx-8 px-8 pt-4 py-8">
             <h1 className="text-3xl">{product.name}</h1>
 
-            <a className="flex gap-1 my-3 font-semibold underline" target="_blank" href={'https://www.youtube.com/watch?v=dQw4w9WgXcQ'}>
+            {/* <a className="flex gap-1 my-3 font-semibold underline" target="_blank" href={'https://www.youtube.com/watch?v=dQw4w9WgXcQ'}>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
                     <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
                 </svg>
                 {product.name} CHANGE THIS ONCE U ADD USER'S INFO UPDATE
-            </a>
+            </a> */}
 
             <div className="relative">
                 <div className="grid gap-2 grid-cols-[2fr_1fr]">
