@@ -58,7 +58,7 @@ export default function AccountPage() {
                 <div className="text-center max-w-lg mx-auto">
                     <h1 style={useStyle.root}> Name: {user.fName} {user.lName} </h1>
                     <h1 style={useStyle.root}> Email: {user.email}</h1>
-                    {/* <h1 style={useStyle.root}> Phone: {user.phone} </h1> */}
+                    <h1 style={useStyle.root}> Phone: {user.phone} </h1>
                     <button onClick={logout} className="primary max-w-sm mt-2">Logout</button>
                 </div>
             )}
