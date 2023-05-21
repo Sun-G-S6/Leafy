@@ -10,7 +10,7 @@ import axios from 'axios';
 import { UserContextProvider } from './UserContext';
 import SearchPage from './pages/SearchPage';
 import AccountPage from './pages/AccountPage';
-import AccountSettingsPage from './pages/AccountSettings';
+//import AccountSettingsPage from './pages/AccountSettings';
 import ProductsPage from './pages/ProductsPages';
 import ProductsFormPage from './pages/ProductsFormPage';
 import SearchedProductPage from './pages/SearchedProductPage';
@@ -32,13 +32,14 @@ function App() {
           <Route path="/search" element={<SearchPage />} />
           <Route path="/account/:subpage?" element={<AccountPage />} />
           <Route path="/account/:subpage/:action" element={<AccountPage />} />
-          <Route path="/accountsettings" element={<AccountSettingsPage />} />
+          {/* <Route path="/accountsettings" element={<AccountSettingsPage />} /> */}
           <Route path="/account" element={<AccountPage />} />
           <Route path="/account/settings" element={<AccountSettings />} />
           <Route path="/account/products" element={<ProductsPage />} />
           <Route path="/account/products/new" element={<ProductsFormPage />} />
           <Route path="/account/products/:id" element={<ProductsFormPage />} />
           <Route path="/product/:id" element={<SearchedProductPage />} />
+          {/* <Route path="/carousel" element={<CarouselPage />} /> */}
         </Route>
       </Routes>
     </UserContextProvider>

@@ -16,8 +16,7 @@ const useStyle = {
     infoTag: {
         fontFamily: "Verdana",
         fontSize: 15
-    },
-    success: {
+    },    success: {
         fontFamily: "Verdana",
         fontSize: 20,
         color: lime.A700
@@ -72,7 +71,8 @@ export default function AccountSettingsPage() {
     }
 
     const handleImageChange = (event) => {
-        setImage(event.target.files[0]);
+        const file = event.target.files[0];
+        setImage(file);
     }
 
     async function handleSubmit(event){
@@ -88,7 +88,7 @@ export default function AccountSettingsPage() {
                 address
                 //image
         });
-        
+
         setSuccess("Information updated successfully! Reload profile page to see changes.");
         } catch (error) {
             alert("Update failed");
@@ -99,11 +99,11 @@ export default function AccountSettingsPage() {
         <div className="mt-4">
             <div className="mb-64">
                 <h1 style={useStyle.root}> Account Settings </h1> <br />
-                <Avatar alt="User" src={image ? URL.createObjectURL(image) : ""} sx={{ width: 170, height: 170 }} />
+                <Avatar alt="User" src={image ?  URL.createObjectURL(image) : ''} sx={{ width: 170, height: 170 }} />
                 <h1 className="mt-3 mb-5">Select image:  <br />
                     <input type="file" accept="image/*" onChange={handleImageChange} />
                 </h1>
-                <h1 className="mt-10" style={useStyle.infoTag}> Change information: </h1> <br />
+                <h1 className="mt-10" style={useStyle.infoTag}> Enter any information you would like to update: </h1> <br />
                 <form className="flex flex-col justify-around" onSubmit={handleSubmit}>
                     <div className='flex'>
                     <TextField input type="text" style={{ width: 250 }} size="small" label="First Name" value={fName} onChange={handleFirstNameChange} />

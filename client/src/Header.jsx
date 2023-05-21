@@ -36,13 +36,13 @@ export default function Header() {
                     </div>
                 </button>
             </Link>
-            <Link to={"/how"}>
+            {/* <Link to={"/carousel"}>
                 <button>
                     <div className='flex border border-gray-400 rounded-full py-3.5 px-1 shadow-md shadow-gray-300'>
                         <div className='px-2'>How we work</div>
                     </div>
                 </button>
-            </Link>
+            </Link> */}
             <div className='flex border border-gray-400 rounded-full py-3 px-4 shadow-md shadow-gray-300'>
                 <div className='px-2'>Search</div>
                 <Link to={"/search"}>

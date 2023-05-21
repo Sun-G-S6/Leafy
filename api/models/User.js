@@ -13,6 +13,7 @@ const UserSchema = new Schema({
         state: String,
         postalCode: Number,
     },
+    image: String,
 });
 
 const UserModel = mongoose.model('User', UserSchema);
